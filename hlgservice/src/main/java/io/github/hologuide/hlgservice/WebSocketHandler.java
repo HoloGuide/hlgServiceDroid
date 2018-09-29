@@ -70,10 +70,20 @@ public class WebSocketHandler extends SimpleChannelInboundHandler<WebSocketFrame
     }
 
     @Override
+    public void channelInactive(ChannelHandlerContext ctx) throws Exception
+    {
+        // Disconnected.
+        ServiceManager.OnDisconnected(ctx.channel().remoteAddress().toString());
+    }
+
+    @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception
     {
+        // Connected.
         Log.d(APPNAME, "Adding new channel " + ctx.channel().remoteAddress() + "to list of channels");
         allChannels.add(ctx.channel());
+
+        ServiceManager.OnConnected(ctx.channel().remoteAddress().toString());
     }
 
     public static void sendBroadcast(String text)

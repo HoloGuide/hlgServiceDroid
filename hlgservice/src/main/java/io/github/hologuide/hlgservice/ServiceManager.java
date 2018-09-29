@@ -31,6 +31,16 @@ public class ServiceManager
         WebService.ShouldContinue = false;
     }
 
+    public static void OnConnected(String address)
+    {
+        com.unity3d.player.UnityPlayer.UnitySendMessage(GameObject, "onConnected", address);
+    }
+
+    public static void OnDisconnected(String address)
+    {
+        com.unity3d.player.UnityPlayer.UnitySendMessage(GameObject, "onDisconnected", address);
+    }
+
     public static void OnReceived(String message)
     {
         com.unity3d.player.UnityPlayer.UnitySendMessage(GameObject, "onReceived", message);
